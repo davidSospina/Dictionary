@@ -8,7 +8,6 @@ package dictionaryserver_db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import sun.security.ec.ECDSAOperations;
 
 /**
  * @author Carlos Andres Rojas
