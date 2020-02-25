@@ -13,11 +13,11 @@ import java.sql.SQLException;
  * @author Carlos Andres Rojas
  * @author David Salgado Ospina
  */
-public class Seeders {
+public class Seeder {
     
     private Conection con;
 
-    public Seeders() {
+    public Seeder() {
         con = new Conection();
     }
     
@@ -55,7 +55,7 @@ public class Seeders {
     
     
     public static void main(String[] args){
-        Seeders seed = new Seeders();
+        Seeder seed = new Seeder();
         
         seed.executeSeeds();
     }
