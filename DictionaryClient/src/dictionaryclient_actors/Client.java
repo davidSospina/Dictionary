@@ -53,7 +53,7 @@ public class Client {
             System.out.println(mensaje);
         }
         
-        netClient.desactivate();
+        netClient.deactivate();
     }
     
     //////////////////////////////////

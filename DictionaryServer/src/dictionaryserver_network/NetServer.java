@@ -63,10 +63,10 @@ public class NetServer {
         } catch (IOException ex) {
             Logger.getLogger(NetServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.desactivate();
+        this.deactivate();
     }
   
-    public void desactivate(){
+    public void deactivate(){
         socket.close();
     }
     

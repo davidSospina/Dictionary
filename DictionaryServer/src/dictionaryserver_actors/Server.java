@@ -32,7 +32,7 @@ public class Server {
     }
     
     public void deactivate (){
-        this.net.desactivate();
+        this.net.deactivate();
     }
 
 //    public static void main(String[] args) {

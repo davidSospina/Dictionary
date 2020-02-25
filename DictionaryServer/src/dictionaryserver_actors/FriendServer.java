@@ -37,9 +37,4 @@ public class FriendServer {
     public void setPort(int port) {
         this.port = port;
     }
-    
-    
-    
-    
-    
 }

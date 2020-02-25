@@ -30,7 +30,7 @@ public class NetClient {
     }
 
     
-    public void desactivate(){
+    public void deactivate(){
         socket.close();
     }
     
