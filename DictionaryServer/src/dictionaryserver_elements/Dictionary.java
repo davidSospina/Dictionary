@@ -154,12 +154,41 @@ public class Dictionary {
             case "SEARCH":
                 Concept c = searchConcept(message[1]);
                 if(c!= null){
-                    response = "200 - "+c.getWord()+" - "+c.getDefinition();
+                    response = "200-"+c.getWord()+"-"+c.getDefinition();
+                }else
+                {
+                    //PREGUNTAR A LOS OTROS
+                    c = searchInFriends(message[1]);
+                    if(c!= null)
+                        response = "200-"+c.getWord()+"-"+c.getDefinition();
+                    else
+                        response = "500";
                 }
                 break;
                 
-            case "HELP":
+            case "LIST":
+                ///System.out.println("AUSHHHH");
+                ArrayList<Concept> consepts = selectAllConcepts();
+                String msg = "200;";
+                for (Concept concept : consepts) {
+                    msg += concept.getWord()+"-"+concept.getDefinition()+";";
+                    response = "200 - "+concept.getWord()+" - "+concept.getDefinition();
+
+                }
+                // falta buscar en los otros servidores
+                response = msg;
+                break;
+                
+            case "HELP.SERVER":
                 /// esto llega de otro servidor
+                Concept con = searchConcept(message[1]);
+                if(con!= null){
+                    response = "200-"+con.getWord()+"-"+con.getDefinition();
+                }
+                else
+                {
+                    response = "500";
+                }
                 break;
                 
             case "BYE":
@@ -182,6 +211,12 @@ public class Dictionary {
             return null;
         }
         
+    }
+    
+    
+    public Concept searchInFriends(String word){
+        Concept concept = this.server.searchInFriends(friends, word);
+        return concept;
     }
 
 }

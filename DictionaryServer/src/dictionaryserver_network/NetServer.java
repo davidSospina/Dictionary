@@ -5,12 +5,15 @@
  */
 package dictionaryserver_network;
 
+import dictionaryserver_actors.FriendServer;
+import dictionaryserver_elements.Concept;
 import dictionaryserver_elements.Dictionary;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -96,6 +99,35 @@ public class NetServer {
         //System.out.println("SERVIDOR recibió: " + new String(sobre.getData()));
         
         return sobre.getData();
+    }
+    
+    public Concept searchInFriends (ArrayList<FriendServer> friends, String word){
+        
+        Concept result = null;
+        byte[] message = ("HELP.SERVER-"+word).getBytes();
+        for (int i = 0; i < friends.size(); i++) {
+            
+            try {
+                FriendServer friend = friends.get(i);
+                InetAddress destinatario = friend.getIp();
+                int puerto = friend.getPort();
+                
+                this.sendMessage(message, destinatario, puerto);
+                byte[] responseByte = this.reciveMessage();
+                String[] response = new String(responseByte).trim().split("-");
+                
+                if(response[0]=="200"){
+                    result = new Concept(response[1], response[2]);
+                    break;
+                }
+                
+            } catch (IOException ex) {
+                Logger.getLogger(NetServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
+        
     }
 
 }

@@ -135,7 +135,10 @@ public class Concept {
                                    rs.getString("definition"));
                 
                 c = new Concept();
+                c.setWord(rs.getString("name"));
+                c = new Concept();
                 c.setDefinition(rs.getString("name"));
+
                 c.setDefinition(rs.getString("definition"));
             }
         } catch (SQLException e) {

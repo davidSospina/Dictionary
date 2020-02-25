@@ -2,8 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/Users/DSO/Downloads/GIT/Dictionary/DictionaryClient/src/dictionaryclient_networks/NetClient.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> 85390aa8bda25e30be3b8bd18aa680385a1a7217
     </open-files>
 </project-private>
