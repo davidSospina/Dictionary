@@ -3,84 +3,96 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dictionaryserver_db;
+package dictionaryserver_elements;
 
-import dictionaryserver_elements.Dictionary;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
 /**
  *
- * @author DSO
+ * @author andres
  */
-public class DataBase {
-       
-    private Connection conn;
+public class Consept {
     
-     private Connection connect() {
-        // SQLite connection string
-        String url = "jdbc:sqlite:dictionary.db";
-        conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-            System.out.println("Conexión DB exitosa");
-        } catch (SQLException e) {
-            System.out.println("Falla en conexión DB: " + e.getMessage());
-        }
-        return conn;
+    private String word;
+    private String definition;
+
+    public Consept(String word, String definition) {
+        this.word = word;
+        this.definition = definition;
     }
-     
-    public void closeConnection(Connection conn){
-        try {
-            conn.close();
-        } catch (SQLException ex) {
-            System.out.println("No se pudo cerrar la conexion");
-        }
+    
+     public Consept() {
+
     }
-     
-    public void updateDefinition(String name, String definition) {
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
+    }
+    
+    
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    
+    public boolean updateDefinition(String name, String definition, Connection conn) {
         String sql = "UPDATE words SET definition = ? "
                 + "WHERE name = ?";
- 
+        boolean band = false;
         try{
-            Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             // set the corresponding param
             pstmt.setString(2, name);
             pstmt.setString(1, definition);
             // update 
             pstmt.executeUpdate();
-            
+            band = true;
             System.out.println("Actualización exitosa: " + name + ": " + definition);
         } catch (SQLException e) {
             System.out.println("Fallo en actualización: " + e.getMessage());
         }
+        return band;
     }
     
-    public void insertConcept(String name, String definition) {
+    ////////////////////////////////////////////////////////////////////////////
+    
+    public boolean insertConcept(String name, String definition, Connection conn) {
         String sql = "INSERT INTO words(name,definition) VALUES(?,?)";
- 
-        try (Connection conn = this.connect();
+        boolean band = false;
+        try (
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, name);
             pstmt.setString(2, definition);
             pstmt.executeUpdate();
+            band = true;
             System.out.println("Inserción exitosa: " + name + ": " + definition);
         } catch (SQLException e) {
             System.out.println("Fallo en inserción: " + e.getMessage());
         }
+        return band;
     }
     
-    public void selectAllConcepts(){
+    ////////////////////////////////////////////////////////////////////////////
+    
+    public ArrayList<Consept> selectAllConcepts(Connection conn){
         String sql = "SELECT id, name, definition FROM words";
-        
-        try (Connection conn = this.connect();
+        ArrayList<Consept> consepts = new ArrayList<>();
+        try (
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
             
@@ -89,17 +101,26 @@ public class DataBase {
                 System.out.println(rs.getInt("id") +  "\t" + 
                                    rs.getString("name") + "\t" +
                                    rs.getString("definition"));
+                
+                Consept consept = new Consept(rs.getString("name"), rs.getString("definition"));
+                consepts.add(consept);
             }
         } catch (SQLException e) {
             System.out.println("Error al mostrar todo: " + e.getMessage());
         }
+        
+        return consepts;
+       
     }
     
-    public void selectConcept(String definition){
+    ////////////////////////////////////////////////////////////////////////////
+    
+    public Consept selectConcept(String definition, Connection conn){
                String sql = "SELECT id, name, definition "
                           + "FROM words WHERE name = ?";
-        
-        try (Connection conn = this.connect();
+        Consept c = null;
+                
+        try (
              PreparedStatement pstmt  = conn.prepareStatement(sql)){
             
             // set the value
@@ -112,16 +133,21 @@ public class DataBase {
                 System.out.println(rs.getInt("id") +  "\t" + 
                                    rs.getString("name") + "\t" +
                                    rs.getString("definition"));
+                
+                c = new Consept();
+                c.setDefinition(rs.getString("name"));
+                c.setDefinition(rs.getString("definition"));
             }
         } catch (SQLException e) {
             System.out.println("Error al mostrar concepto: " + e.getMessage());
         }
+        return c;
     }
-    
-    public void deleteConcept(String name) {
+    /////////////////////////////////////////////////////////////////////////////
+    public boolean deleteConcept(String name, Connection conn) {
         String sql = "DELETE FROM words WHERE name = ?";
- 
-        try (Connection conn = this.connect();
+        boolean band = false;
+        try (
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
  
             // set the corresponding param
@@ -129,27 +155,15 @@ public class DataBase {
             // execute the delete statement
             pstmt.executeUpdate();
             System.out.println("Concepto eliminado de forma exitosa: " + name);
+            band = true;
         } catch (SQLException e) {
             System.out.println("Error al eliminar concepto: " + e.getMessage());
         }
+        
+        return band;
     }
     
-     /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-//        DataBase db = new DataBase() {};
-//        //db.connect();
-//        
-//        //db.updateDefinition("Silla", "Objeto para sentarse");
-//        db.insertConcept("BALON", "Objeto redondo para jugar");
-//        db.selectAllConcepts();
-//        System.out.println("/////");
-//        //db.selectConcept("Silla");
-//        db.deleteConcept("Silla");
-        Dictionary dictionary = new Dictionary(4400);
-        
-        //dictionary.activate();
-    }
+    
+    
+    
 }
