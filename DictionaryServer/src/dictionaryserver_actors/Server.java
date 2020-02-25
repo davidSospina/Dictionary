@@ -12,8 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author andres
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class Server {
 
@@ -32,7 +32,7 @@ public class Server {
     }
     
     public void deactivate (){
-        this.net.deactivate();
+        this.net.desactivate();
     }
 
 //    public static void main(String[] args) {

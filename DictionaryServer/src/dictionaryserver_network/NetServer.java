@@ -15,8 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author andres
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class NetServer {
     
@@ -63,10 +63,10 @@ public class NetServer {
         } catch (IOException ex) {
             Logger.getLogger(NetServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.deactivate();
+        this.desactivate();
     }
   
-    public void deactivate(){
+    public void desactivate(){
         socket.close();
     }
     

@@ -15,8 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author DSO
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class Client {
     
@@ -53,7 +53,7 @@ public class Client {
             System.out.println(mensaje);
         }
         
-        netClient.deactivate();
+        netClient.desactivate();
     }
     
     //////////////////////////////////

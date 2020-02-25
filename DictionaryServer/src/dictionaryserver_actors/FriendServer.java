@@ -9,8 +9,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- *
- * @author andres
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class FriendServer {
     

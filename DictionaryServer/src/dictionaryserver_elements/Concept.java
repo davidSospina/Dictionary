@@ -13,20 +13,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
- * @author andres
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
-public class Consept {
+public class Concept {
     
     private String word;
     private String definition;
 
-    public Consept(String word, String definition) {
+    public Concept(String word, String definition) {
         this.word = word;
         this.definition = definition;
     }
     
-     public Consept() {
+    public Concept() {
 
     }
 
@@ -89,9 +89,9 @@ public class Consept {
     
     ////////////////////////////////////////////////////////////////////////////
     
-    public ArrayList<Consept> selectAllConcepts(Connection conn){
+    public ArrayList<Concept> selectAllConcepts(Connection conn){
         String sql = "SELECT id, name, definition FROM words";
-        ArrayList<Consept> consepts = new ArrayList<>();
+        ArrayList<Concept> concepts = new ArrayList<>();
         try (
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
@@ -102,23 +102,23 @@ public class Consept {
                                    rs.getString("name") + "\t" +
                                    rs.getString("definition"));
                 
-                Consept consept = new Consept(rs.getString("name"), rs.getString("definition"));
-                consepts.add(consept);
+                Concept concept = new Concept(rs.getString("name"), rs.getString("definition"));
+                concepts.add(concept);
             }
         } catch (SQLException e) {
             System.out.println("Error al mostrar todo: " + e.getMessage());
         }
         
-        return consepts;
+        return concepts;
        
     }
     
     ////////////////////////////////////////////////////////////////////////////
     
-    public Consept selectConcept(String definition, Connection conn){
+    public Concept selectConcept(String definition, Connection conn){
                String sql = "SELECT id, name, definition "
                           + "FROM words WHERE name = ?";
-        Consept c = null;
+        Concept c = null;
                 
         try (
              PreparedStatement pstmt  = conn.prepareStatement(sql)){
@@ -134,7 +134,7 @@ public class Consept {
                                    rs.getString("name") + "\t" +
                                    rs.getString("definition"));
                 
-                c = new Consept();
+                c = new Concept();
                 c.setDefinition(rs.getString("name"));
                 c.setDefinition(rs.getString("definition"));
             }
@@ -143,7 +143,9 @@ public class Consept {
         }
         return c;
     }
-    /////////////////////////////////////////////////////////////////////////////
+    
+    ////////////////////////////////////////////////////////////////////////////
+    
     public boolean deleteConcept(String name, Connection conn) {
         String sql = "DELETE FROM words WHERE name = ?";
         boolean band = false;

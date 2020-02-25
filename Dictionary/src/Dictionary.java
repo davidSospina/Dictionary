@@ -5,8 +5,9 @@
  */
 
 /**
- *
- * @author DSO
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
+ * 
  */
 public class Dictionary {
     
