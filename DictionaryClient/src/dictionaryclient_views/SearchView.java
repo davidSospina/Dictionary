@@ -5,38 +5,27 @@
  */
 package dictionaryclient_views;
 
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
+import dictionaryclient_actors.Client;
 import javax.swing.JPanel;
 
 /**
  *
- * @author DSO
+ * @author andres
  */
-public class ShowView extends javax.swing.JFrame {
+public class SearchView extends javax.swing.JDialog {
     private MainPage ventana;
+    Client cliente;
     /**
-     * Creates new form ShowView
+     * Creates new form SearchView
      */
-    public ShowView(ArrayList<String> palabras,  MainPage v) {
+    public SearchView(java.awt.Frame parent, boolean modal,Client c,  MainPage v) {
+        super(parent, modal);
         initComponents();
-        try {
-            this.setIconImage(new ImageIcon(getClass().getResource("/dictionaryclient_images/dictionary.png")).getImage());
-            this.setLocationRelativeTo(null);
-        } catch (Exception e) {
-            System.out.println("no lo veo");
-        }
-        mostratLineas(palabras);
-        this.ventana = v;
-    }
-
-    public void mostratLineas(ArrayList<String> texto) {
-        for (int i = 0; i < texto.size(); i++) {
-
-            this.txtLista.append(texto.get(i) + "\n");
-        }
         
+        this.ventana = v;
+        this.cliente = c;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +46,7 @@ public class ShowView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtLista = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 102, 0));
         jPanel2.setForeground(new java.awt.Color(255, 102, 0));
@@ -175,13 +164,13 @@ public class ShowView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jpSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,7 +221,7 @@ public class ShowView extends javax.swing.JFrame {
         setColorSalir(jpAtras);
     }//GEN-LAST:event_jpAtrasMouseExited
 
-     private void setColorEntrar(JPanel panel) {
+   private void setColorEntrar(JPanel panel) {
 
         panel.setBackground(new java.awt.Color(255, 223, 172));
     }

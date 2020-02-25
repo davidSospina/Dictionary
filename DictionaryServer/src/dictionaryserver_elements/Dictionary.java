@@ -155,11 +155,38 @@ public class Dictionary {
                 Consept c = searchConsept(message[1]);
                 if(c!= null){
                     response = "200-"+c.getWord()+"-"+c.getDefinition();
+                }else
+                {
+                    //PREGUNTAR A LOS OTROS
+                    c = searchInFriends(message[1]);
+                    if(c!= null)
+                        response = "200-"+c.getWord()+"-"+c.getDefinition();
+                    else
+                        response = "500";
                 }
                 break;
                 
-            case "HELP":
+            case "LIST":
+                ///System.out.println("AUSHHHH");
+                ArrayList<Consept> consepts = selectAllConcepts();
+                String msg = "200;";
+                for (Consept consept : consepts) {
+                    msg += consept.getWord()+"-"+consept.getDefinition()+";";
+                }
+                // falta buscar en los otros servidores
+                response = msg;
+                break;
+                
+            case "HELP.SERVER":
                 /// esto llega de otro servidor
+                Consept con = searchConsept(message[1]);
+                if(con!= null){
+                    response = "200-"+con.getWord()+"-"+con.getDefinition();
+                }
+                else
+                {
+                    response = "500";
+                }
                 break;
                 
             case "BYE":
@@ -182,6 +209,12 @@ public class Dictionary {
             return null;
         }
         
+    }
+    
+    
+    public Consept searchInFriends(String word){
+        Consept consept = this.server.searchInFriends(friends, word);
+        return consept;
     }
 
 }

@@ -135,7 +135,7 @@ public class Consept {
                                    rs.getString("definition"));
                 
                 c = new Consept();
-                c.setDefinition(rs.getString("name"));
+                c.setWord(rs.getString("name"));
                 c.setDefinition(rs.getString("definition"));
             }
         } catch (SQLException e) {

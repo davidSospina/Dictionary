@@ -5,9 +5,11 @@
  */
 package dictionaryserver_actors;
 
+import dictionaryserver_elements.Consept;
 import dictionaryserver_elements.Dictionary;
 import dictionaryserver_network.NetServer;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +35,11 @@ public class Server {
     
     public void deactivate (){
         this.net.deactivate();
+    }
+    
+    public Consept searchInFriends (ArrayList<FriendServer> fiends, String word){
+        
+        return this.net.searchInFriends(fiends,word);
     }
 
 //    public static void main(String[] args) {
