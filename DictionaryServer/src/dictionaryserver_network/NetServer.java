@@ -6,7 +6,7 @@
 package dictionaryserver_network;
 
 import dictionaryserver_actors.FriendServer;
-import dictionaryserver_elements.Consept;
+import dictionaryserver_elements.Concept;
 import dictionaryserver_elements.Dictionary;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -18,8 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author andres
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class NetServer {
     
@@ -101,9 +101,9 @@ public class NetServer {
         return sobre.getData();
     }
     
-    public Consept searchInFriends (ArrayList<FriendServer> friends, String word){
+    public Concept searchInFriends (ArrayList<FriendServer> friends, String word){
         
-        Consept result = null;
+        Concept result = null;
         byte[] message = ("HELP.SERVER-"+word).getBytes();
         for (int i = 0; i < friends.size(); i++) {
             
@@ -117,7 +117,7 @@ public class NetServer {
                 String[] response = new String(responseByte).trim().split("-");
                 
                 if(response[0]=="200"){
-                    result = new Consept(response[1], response[2]);
+                    result = new Concept(response[1], response[2]);
                     break;
                 }
                 

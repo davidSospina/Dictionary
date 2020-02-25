@@ -8,17 +8,16 @@ package dictionaryserver_db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import sun.security.ec.ECDSAOperations;
 
 /**
- *
- * @author andres
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
-public class Seeders {
+public class Seeder {
     
     private Conection con;
 
-    public Seeders() {
+    public Seeder() {
         con = new Conection();
     }
     
@@ -51,13 +50,12 @@ public class Seeders {
         this.insertConcept("CODIGO","Signo, seña o regla que permite entender un mensaje.");
         this.insertConcept("COMA","Signo escrito u ortográfico que divide las frases y miembros cortos de una oración");
         this.insertConcept("COMPETENCIA","Cuando no se la utiliza con cuidado, esta palabra pudiera confundir por sus diferencias de significado. Se requiere entendimiento para discernir a qué se refiere el texto.");
-        this.insertConcept("CONGRESO","Reunión personas o conferencia en que los miembros de una organización disciernen o debaten ordenadamente cuestiones importantes.");
-
+        this.insertConcept("CONGRESO","Reunión de personas o conferencia en que los miembros de una organización disciernen o debaten ordenadamente cuestiones importantes.");
     }
     
     
     public static void main(String[] args){
-        Seeders seed = new Seeders();
+        Seeder seed = new Seeder();
         
         seed.executeSeeds();
     }

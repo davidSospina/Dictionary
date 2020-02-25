@@ -5,7 +5,7 @@
  */
 package dictionaryserver_actors;
 
-import dictionaryserver_elements.Consept;
+import dictionaryserver_elements.Concept;
 import dictionaryserver_elements.Dictionary;
 import dictionaryserver_network.NetServer;
 import java.net.SocketException;
@@ -14,8 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author andres
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class Server {
 
@@ -37,7 +37,7 @@ public class Server {
         this.net.deactivate();
     }
     
-    public Consept searchInFriends (ArrayList<FriendServer> fiends, String word){
+    public Concept searchInFriends (ArrayList<FriendServer> fiends, String word){
         
         return this.net.searchInFriends(fiends,word);
     }

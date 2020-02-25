@@ -12,8 +12,8 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 /**
- *
- * @author DSO
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class NetClient {
     
@@ -39,8 +39,7 @@ public class NetClient {
         return reciveMessage();
     }
     
-    public void sendMessage
-        (byte[] mensaje) 
+    public void sendMessage(byte[] mensaje) 
             throws IOException
     {
         byte[] hoja = new String(mensaje).getBytes();
@@ -56,8 +55,7 @@ public class NetClient {
     public byte[] reciveMessage() throws IOException{
         byte[] hoja = new byte[1000];
                 
-        DatagramPacket sobre = new DatagramPacket
-            (hoja, hoja.length);
+        DatagramPacket sobre = new DatagramPacket(hoja, hoja.length);
         
         socket.receive(sobre);
         

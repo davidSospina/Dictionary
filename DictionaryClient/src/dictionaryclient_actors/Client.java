@@ -16,8 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author DSO
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class Client {
     

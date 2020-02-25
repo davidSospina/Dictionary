@@ -18,8 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author andres
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
  */
 public class Dictionary {
 
@@ -28,7 +28,7 @@ public class Dictionary {
 
     private Connection connection;
 
-    private Consept consepts;
+    private Concept concepts;
 
     public Dictionary(int port) {
 
@@ -40,7 +40,7 @@ public class Dictionary {
         
         System.out.println("Numero de amigos: "+this.friends.size());
         
-        consepts = new Consept();
+        concepts = new Concept();
         activate();
 
     }
@@ -48,10 +48,10 @@ public class Dictionary {
     public void activate(){
         System.out.println("SERVIDOR ACTIVADO");
         this.server.activate();
-        
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    
     public void getFriends() {
 
         String sql = "SELECT ip, port FROM friendServer";
@@ -81,9 +81,9 @@ public class Dictionary {
     
     ///////////////////////////////////////////////////////////////////////////
     
-    public Consept searchConsept(String word)
+    public Concept searchConcept(String word)
     {
-        Consept c = this.consepts.selectConcept(word, this.connection);
+        Concept c = this.concepts.selectConcept(word, this.connection);
         
         if (c != null)
         {
@@ -95,23 +95,23 @@ public class Dictionary {
         
     }
     
-    public boolean insertConsept(String word, String definition){
-        return this.consepts.insertConcept(word, definition, this.connection);
+    public boolean insertConcept(String word, String definition){
+        return this.concepts.insertConcept(word, definition, this.connection);
     }
     
     public boolean updateDefinition(String name, String definition){
         
-        return this.consepts.updateDefinition(name, definition, this.connection);
+        return this.concepts.updateDefinition(name, definition, this.connection);
         
     }
     
-    public ArrayList<Consept> selectAllConcepts(){
+    public ArrayList<Concept> selectAllConcepts(){
         
-        return this.consepts.selectAllConcepts(this.connection);
+        return this.concepts.selectAllConcepts(this.connection);
     }
     
     public boolean deleteConcept(String name) {
-        return this.consepts.deleteConcept(name, connection);
+        return this.concepts.deleteConcept(name, connection);
     }
     ////////////////////////////////////////////////////////////////////////////
     
@@ -124,7 +124,7 @@ public class Dictionary {
         switch (message[0]){
             case "ADD":
                 
-                if(insertConsept(message[1], message[2])){
+                if(insertConcept(message[1], message[2])){
                     response = "200";
                 }else
                 {
@@ -152,7 +152,7 @@ public class Dictionary {
                 break;
                 
             case "SEARCH":
-                Consept c = searchConsept(message[1]);
+                Concept c = searchConcept(message[1]);
                 if(c!= null){
                     response = "200-"+c.getWord()+"-"+c.getDefinition();
                 }else
@@ -168,10 +168,12 @@ public class Dictionary {
                 
             case "LIST":
                 ///System.out.println("AUSHHHH");
-                ArrayList<Consept> consepts = selectAllConcepts();
+                ArrayList<Concept> consepts = selectAllConcepts();
                 String msg = "200;";
-                for (Consept consept : consepts) {
-                    msg += consept.getWord()+"-"+consept.getDefinition()+";";
+                for (Concept concept : consepts) {
+                    msg += concept.getWord()+"-"+concept.getDefinition()+";";
+                    response = "200 - "+concept.getWord()+" - "+concept.getDefinition();
+
                 }
                 // falta buscar en los otros servidores
                 response = msg;
@@ -179,7 +181,7 @@ public class Dictionary {
                 
             case "HELP.SERVER":
                 /// esto llega de otro servidor
-                Consept con = searchConsept(message[1]);
+                Concept con = searchConcept(message[1]);
                 if(con!= null){
                     response = "200-"+con.getWord()+"-"+con.getDefinition();
                 }
@@ -212,9 +214,9 @@ public class Dictionary {
     }
     
     
-    public Consept searchInFriends(String word){
-        Consept consept = this.server.searchInFriends(friends, word);
-        return consept;
+    public Concept searchInFriends(String word){
+        Concept concept = this.server.searchInFriends(friends, word);
+        return concept;
     }
 
 }

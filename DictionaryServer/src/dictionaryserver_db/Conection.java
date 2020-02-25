@@ -14,13 +14,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
- * @author andres
+ * Conexion con la BD.
+ * 
+ * @author Carlos Andres Rojas
+ * @author David Salgado Ospina
+ * 
+ * 
  */
 public class Conection {
     
     private Connection conn;
-    
     
     public Connection connect() {
         // SQLite connection string
@@ -39,7 +42,7 @@ public class Conection {
         try {
             conn.close();
         } catch (SQLException ex) {
-            System.out.println("No se pudo cerrar la conexion");
+            System.out.println("No se pudo cerrar la conexión");
         }
     }
 }
