@@ -144,6 +144,7 @@ public class Dictionary {
                 
             case "UPDATE":
                 if(updateDefinition(message[1], message[2])){
+                    System.out.println(message[1]+" "+message[2]);
                     response = "200";
                 }else
                 {
@@ -158,6 +159,7 @@ public class Dictionary {
                 }else
                 {
                     //PREGUNTAR A LOS OTROS
+                    //System.out.println("auuchhh");
                     c = searchInFriends(message[1]);
                     if(c!= null)
                         response = "200-"+c.getWord()+"-"+c.getDefinition();
@@ -172,16 +174,37 @@ public class Dictionary {
                 String msg = "200;";
                 for (Concept concept : consepts) {
                     msg += concept.getWord()+"-"+concept.getDefinition()+";";
-                    response = "200 - "+concept.getWord()+" - "+concept.getDefinition();
+                    //response = "200 - "+concept.getWord()+" - "+concept.getDefinition();
 
                 }
                 // falta buscar en los otros servidores
+                ArrayList<Concept> Friendsconsepts = server.listarPalabrasFriends(friends);
+                for (Concept concept : Friendsconsepts) {
+                    msg += concept.getWord()+"-"+concept.getDefinition()+";";
+                    //response = "200 - "+concept.getWord()+" - "+concept.getDefinition();
+
+                }
+                System.out.println((consepts.size()+Friendsconsepts.size())+"");
+                
                 response = msg;
+                System.out.println(msg);
+                break;
+                
+            case "LIST.HELP.SERVER":
+                ArrayList<Concept> conseptsMe = selectAllConcepts();
+                String msgMe = "200;";
+                for (Concept concept : conseptsMe) {
+                    msgMe += concept.getWord()+"-"+concept.getDefinition()+";";
+                    //response = "200 - "+concept.getWord()+" - "+concept.getDefinition();
+
+                }
+                response = msgMe;
                 break;
                 
             case "HELP.SERVER":
                 /// esto llega de otro servidor
                 Concept con = searchConcept(message[1]);
+                System.out.println("auuuchhh");
                 if(con!= null){
                     response = "200-"+con.getWord()+"-"+con.getDefinition();
                 }

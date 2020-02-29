@@ -367,7 +367,9 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jpBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpBuscarMouseClicked
-
+            
+        SearchView v = new SearchView(this, true, cliente, this);
+        v.setVisible(true);
         
         
     }//GEN-LAST:event_jpBuscarMouseClicked
@@ -393,7 +395,11 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jpSalirMouseExited
 
     private void jpIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpIngresarMouseClicked
-        // TODO add your handling code here:
+       
+        AddView v = new AddView(cliente, this);
+        this.setVisible(false);
+        v.setVisible(true);
+        
     }//GEN-LAST:event_jpIngresarMouseClicked
 
     private void jpIngresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpIngresarMouseEntered
@@ -414,7 +420,7 @@ public class MainPage extends javax.swing.JFrame {
         ArrayList<String> palabras = new ArrayList<String>();
         for (int i = 1; i < lista.length; i++) {
             String linea = lista[i];
-            System.out.println(linea.split("-").length);
+            //System.out.println(linea.split("-").length);
             if(linea.split("-").length == 2){
 //                String palabra = linea.split("-")[0];
 //                String definicion = linea.split("-")[1];
@@ -440,7 +446,9 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jpListarMouseExited
 
     private void jpEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEliminarMouseClicked
-        // TODO add your handling code here:
+        DeleteView v = new DeleteView(cliente, this);
+        this.setVisible(false);
+        v.setVisible(true);
     }//GEN-LAST:event_jpEliminarMouseClicked
 
     private void jpEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEliminarMouseEntered

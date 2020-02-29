@@ -37,7 +37,7 @@ public class Client {
             System.out.print(">> "+comando);
             
             String mensaje = comando;
-            
+            System.out.println(mensaje);
             if(mensaje.equalsIgnoreCase("BYE"))
                 break;
             
@@ -63,7 +63,7 @@ public class Client {
     {
         String command = "SEARCH-"+word;
         String[] response = this.process(command).split("-");
-        
+        System.out.println(response[0]);
         if(response[0].equals("200")){
             return response[1]+":"+response[2];
         }else
@@ -80,8 +80,9 @@ public class Client {
     public boolean updateDefinition(String name, String definition){
         
         String command = "UPDATE-"+name+"-"+definition;
+        System.out.println(command);
         String response = this.process(command);
-        
+        System.out.println(response);
         return response.equals("200");
     }
     
@@ -89,7 +90,7 @@ public class Client {
         
         String command = "LIST";
         String result = this.process(command);
-        
+        System.out.println(result);
         String[] response = result.split(";");
         if(response[0].equals("200")){
             return result;

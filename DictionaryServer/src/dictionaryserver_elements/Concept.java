@@ -55,6 +55,7 @@ public class Concept {
                 + "WHERE name = ?";
         boolean band = false;
         try{
+            System.out.println(definition);
             PreparedStatement pstmt = conn.prepareStatement(sql);
             // set the corresponding param
             pstmt.setString(2, name);
