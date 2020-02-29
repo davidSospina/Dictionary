@@ -168,8 +168,4 @@ public class Concept {
         
         return band;
     }
-    
-    
-    
-    
 }
